@@ -1,7 +1,12 @@
 from django.urls import path
-from .views import article_detail, article_display
+from .views import ArticleDetail, ArticleGenericView, ArticleList, article_detail, article_display
+from test_api import views
 
 urlpatterns = [
-    path('article/', article_display),
-    path('detail/<int:pk>', article_detail)
+    path('article/', views.ArticleAPIView.as_view()),
+    path('detail/<int:pk>', views.ArticleAPIDetail.as_view()),
+    path('generic/article/', views.ArticleGenericView.as_view()),
+    path('generic/detail/<int:pk>', views.ArticleDetail.as_view()),
+    path('article_list/', views.ArticleList.as_view()),
+    path('article_detail/', views.ArticleDetails.as_view())
 ]
