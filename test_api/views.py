@@ -12,16 +12,20 @@ from django.http import Http404
 
 from rest_framework import mixins
 from rest_framework import generics
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 #Generic based views
 
 class ArticleList(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class ArticleDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    lookup_field = 'id'
 
 
 #Generic class based API views using mixins
